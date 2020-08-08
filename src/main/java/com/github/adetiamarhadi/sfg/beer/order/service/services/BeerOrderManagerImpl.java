@@ -4,6 +4,7 @@ import com.github.adetiamarhadi.sfg.beer.order.service.domain.BeerOrder;
 import com.github.adetiamarhadi.sfg.beer.order.service.domain.BeerOrderEventEnum;
 import com.github.adetiamarhadi.sfg.beer.order.service.domain.BeerOrderStatusEnum;
 import com.github.adetiamarhadi.sfg.beer.order.service.repositories.BeerOrderRepository;
+import com.github.adetiamarhadi.sfg.beer.order.service.services.sm.BeerOrderStateChangeInterceptor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.messaging.Message;
 import org.springframework.messaging.support.MessageBuilder;
@@ -17,8 +18,11 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public class BeerOrderManagerImpl implements BeerOrderManager {
 
+    public static final String ORDER_ID_HEADER = "ORDER_ID_HEADER";
+
     private final StateMachineFactory<BeerOrderStatusEnum, BeerOrderEventEnum> stateMachineFactory;
     private final BeerOrderRepository beerOrderRepository;
+    private final BeerOrderStateChangeInterceptor beerOrderStateChangeInterceptor;
 
     @Transactional
     @Override
@@ -35,7 +39,9 @@ public class BeerOrderManagerImpl implements BeerOrderManager {
     private void sendBeerOrderEvent(BeerOrder beerOrder, BeerOrderEventEnum eventEnum) {
         StateMachine<BeerOrderStatusEnum, BeerOrderEventEnum> sm = build(beerOrder);
 
-        Message msg = MessageBuilder.withPayload(eventEnum).build();
+        Message msg = MessageBuilder.withPayload(eventEnum)
+                .setHeader(ORDER_ID_HEADER, beerOrder.getId().toString())
+                .build();
 
         sm.sendEvent(msg);
     }
@@ -47,9 +53,12 @@ public class BeerOrderManagerImpl implements BeerOrderManager {
         sm.stop();
 
         sm.getStateMachineAccessor()
-                .doWithAllRegions(sma -> sma.resetStateMachine(
-                        new DefaultStateMachineContext<>(beerOrder.getOrderStatus(), null, null, null)
-                ));
+                .doWithAllRegions(sma -> {
+                    sma.addStateMachineInterceptor(this.beerOrderStateChangeInterceptor);
+                    sma.resetStateMachine(
+                            new DefaultStateMachineContext<>(beerOrder.getOrderStatus(), null, null, null)
+                    );
+                });
 
         sm.start();
 
