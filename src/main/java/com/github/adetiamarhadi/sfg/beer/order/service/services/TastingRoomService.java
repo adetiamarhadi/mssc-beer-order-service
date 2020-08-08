@@ -1,11 +1,11 @@
 package com.github.adetiamarhadi.sfg.beer.order.service.services;
 
-import com.github.adetiamarhadi.sfg.beer.order.service.web.model.BeerOrderLineDto;
+import com.github.adetiamarhadi.sfg.brewery.model.BeerOrderLineDto;
 import com.github.adetiamarhadi.sfg.beer.order.service.bootstrap.BeerOrderBootStrap;
 import com.github.adetiamarhadi.sfg.beer.order.service.domain.Customer;
 import com.github.adetiamarhadi.sfg.beer.order.service.repositories.BeerOrderRepository;
 import com.github.adetiamarhadi.sfg.beer.order.service.repositories.CustomerRepository;
-import com.github.adetiamarhadi.sfg.beer.order.service.web.model.BeerOrderDto;
+import com.github.adetiamarhadi.sfg.brewery.model.BeerOrderDto;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;

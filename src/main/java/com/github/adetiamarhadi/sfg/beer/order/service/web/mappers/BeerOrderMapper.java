@@ -18,7 +18,7 @@
 package com.github.adetiamarhadi.sfg.beer.order.service.web.mappers;
 
 import com.github.adetiamarhadi.sfg.beer.order.service.domain.BeerOrder;
-import com.github.adetiamarhadi.sfg.beer.order.service.web.model.BeerOrderDto;
+import com.github.adetiamarhadi.sfg.brewery.model.BeerOrderDto;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 

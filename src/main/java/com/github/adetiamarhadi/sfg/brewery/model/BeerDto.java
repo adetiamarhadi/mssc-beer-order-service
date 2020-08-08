@@ -1,4 +1,4 @@
-package com.github.adetiamarhadi.sfg.beer.order.service.web.model;
+package com.github.adetiamarhadi.sfg.brewery.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;

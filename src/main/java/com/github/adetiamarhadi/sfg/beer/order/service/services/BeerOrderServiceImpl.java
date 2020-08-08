@@ -19,8 +19,8 @@ package com.github.adetiamarhadi.sfg.beer.order.service.services;
 
 import com.github.adetiamarhadi.sfg.beer.order.service.domain.BeerOrderStatusEnum;
 import com.github.adetiamarhadi.sfg.beer.order.service.web.mappers.BeerOrderMapper;
-import com.github.adetiamarhadi.sfg.beer.order.service.web.model.BeerOrderDto;
-import com.github.adetiamarhadi.sfg.beer.order.service.web.model.BeerOrderPagedList;
+import com.github.adetiamarhadi.sfg.brewery.model.BeerOrderDto;
+import com.github.adetiamarhadi.sfg.brewery.model.BeerOrderPagedList;
 import com.github.adetiamarhadi.sfg.beer.order.service.domain.BeerOrder;
 import com.github.adetiamarhadi.sfg.beer.order.service.domain.Customer;
 import com.github.adetiamarhadi.sfg.beer.order.service.repositories.BeerOrderRepository;

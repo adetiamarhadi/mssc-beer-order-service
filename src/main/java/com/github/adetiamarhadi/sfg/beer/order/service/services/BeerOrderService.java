@@ -18,8 +18,8 @@
 package com.github.adetiamarhadi.sfg.beer.order.service.services;
 
 
-import com.github.adetiamarhadi.sfg.beer.order.service.web.model.BeerOrderDto;
-import com.github.adetiamarhadi.sfg.beer.order.service.web.model.BeerOrderPagedList;
+import com.github.adetiamarhadi.sfg.brewery.model.BeerOrderDto;
+import com.github.adetiamarhadi.sfg.brewery.model.BeerOrderPagedList;
 import org.springframework.data.domain.Pageable;
 
 import java.util.UUID;

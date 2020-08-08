@@ -1,6 +1,6 @@
 package com.github.adetiamarhadi.sfg.beer.order.service.services.beer;
 
-import com.github.adetiamarhadi.sfg.beer.order.service.web.model.BeerDto;
+import com.github.adetiamarhadi.sfg.brewery.model.BeerDto;
 
 import java.util.Optional;
 import java.util.UUID;

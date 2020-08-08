@@ -2,8 +2,8 @@ package com.github.adetiamarhadi.sfg.beer.order.service.web.mappers;
 
 import com.github.adetiamarhadi.sfg.beer.order.service.domain.BeerOrderLine;
 import com.github.adetiamarhadi.sfg.beer.order.service.services.beer.BeerService;
-import com.github.adetiamarhadi.sfg.beer.order.service.web.model.BeerDto;
-import com.github.adetiamarhadi.sfg.beer.order.service.web.model.BeerOrderLineDto;
+import com.github.adetiamarhadi.sfg.brewery.model.BeerDto;
+import com.github.adetiamarhadi.sfg.brewery.model.BeerOrderLineDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 
