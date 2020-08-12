@@ -15,6 +15,7 @@ import org.springframework.statemachine.StateContext;
 import org.springframework.statemachine.action.Action;
 import org.springframework.stereotype.Component;
 
+import java.util.Optional;
 import java.util.UUID;
 
 @Slf4j
@@ -29,13 +30,13 @@ public class ValidateOrderAction implements Action<BeerOrderStatusEnum, BeerOrde
     @Override
     public void execute(StateContext<BeerOrderStatusEnum, BeerOrderEventEnum> stateContext) {
         String beerOrderId = (String) stateContext.getMessage().getHeaders().get(BeerOrderManagerImpl.ORDER_ID_HEADER);
-        BeerOrder beerOrder = this.beerOrderRepository.findOneById(UUID.fromString(beerOrderId));
 
-        jmsTemplate.convertAndSend(JmsConfig.VALIDATE_ORDER_QUEUE,
-                ValidateOrderRequest.builder()
-                        .beerOrderDto(this.beerOrderMapper.beerOrderToDto(beerOrder))
-                        .build());
-
-        log.debug("sent validation request to queue for order id " + beerOrderId);
+        Optional<BeerOrder> beerOrderOptional = this.beerOrderRepository.findById(UUID.fromString(beerOrderId));
+        beerOrderOptional.ifPresentOrElse(beerOrder -> {
+            jmsTemplate.convertAndSend(JmsConfig.VALIDATE_ORDER_QUEUE,
+                    ValidateOrderRequest.builder()
+                            .beerOrderDto(this.beerOrderMapper.beerOrderToDto(beerOrder))
+                            .build());
+        }, () -> log.error("order not found. id: {}", beerOrderId));
     }
 }
